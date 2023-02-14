@@ -13,10 +13,12 @@ plugins {
     id "org.jetbrains.kotlin.plugin.jpa" version "${kotlinVersion}"
     id "org.springframework.boot" version "${springBootVersion}"
     id "io.spring.dependency-management" version "${dependencyManagementVersion}"
+    id "io.gitlab.arturbosch.detekt" version "${detektVersion}"
 }
 
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'kotlin'
+apply plugin: "io.gitlab.arturbosch.detekt"
 
 def jarSuffix = System.getenv('JAR_SUFFIX') ?: ""
 description = description
@@ -63,4 +65,10 @@ sourceSets {
 
 tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
+}
+
+detekt {
+    toolVersion = detektVersion
+    config = files("$projectDir/config/detekt.yml")
+    autoCorrect = true
 }

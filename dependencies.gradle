@@ -18,4 +18,6 @@ dependencies {
         exclude group: "org.mockito", module: "mockito-core"
     }
     testImplementation("org.springframework.security:spring-security-test:${springSecurityTestVersion}")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-formatting:${detektVersion}")
+    detektPlugins("io.gitlab.arturbosch.detekt:detekt-cli:${detektVersion}")
 }
