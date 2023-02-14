@@ -1,6 +1,5 @@
 package com.springjwt.security.user
 
-
 import jakarta.persistence.Entity
 import jakarta.persistence.EnumType
 import jakarta.persistence.Enumerated
@@ -16,7 +15,7 @@ import org.springframework.security.core.userdetails.UserDetails
 data class User(
     @Id
     @GeneratedValue
-    val id: Int,
+    val id: Int? = null,
     val firstName: String,
     val lastName: String,
     val email: String,

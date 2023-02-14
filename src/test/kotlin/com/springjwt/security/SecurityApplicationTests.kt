@@ -9,5 +9,4 @@ class SecurityApplicationTests {
 	@Test
 	fun contextLoads() {
 	}
-
 }

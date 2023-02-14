@@ -3,6 +3,7 @@ package com.springjwt.security.config
 import jakarta.servlet.FilterChain
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+import org.springframework.http.HttpHeaders
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
 import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.security.core.userdetails.UserDetailsService
@@ -21,29 +22,27 @@ class JWTAuthenticationFilter(
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        val authHeader: String = request.getHeader("Authorization")
-        return if (!authHeader.startsWith(TOKEN_PREFIX)) {
+        val authHeader = request.getHeader(HttpHeaders.AUTHORIZATION)
+        return if (authHeader.isNullOrEmpty() || !authHeader.startsWith(TOKEN_PREFIX)) {
             filterChain.doFilter(request, response)
         } else {
-            fillContextWithAuthentication(authHeader, request)
+            SecurityContextHolder.getContext().authentication ?: fillContextWithAuthentication(authHeader, request)
             filterChain.doFilter(request, response)
         }
     }
 
     private fun fillContextWithAuthentication(authHeader: String, request: HttpServletRequest) {
-        SecurityContextHolder.getContext().authentication?.let {
-            val jwt = authHeader.substring(TOKEN_INDEX)
-            val userEmail = jwtService.extractUsername(jwt)
-            val userDetails = userDetailsService.loadUserByUsername(userEmail)
-            if (jwtService.isTokenValid(jwt, userDetails)) {
-                val authToken = UsernamePasswordAuthenticationToken(
-                    userDetails,
-                    null,
-                    userDetails.authorities
-                )
-                authToken.details = WebAuthenticationDetailsSource().buildDetails(request)
-                SecurityContextHolder.getContext().authentication = authToken
-            }
+        val jwt = authHeader.substring(TOKEN_INDEX)
+        val userEmail = jwtService.extractUsername(jwt)
+        val userDetails = userDetailsService.loadUserByUsername(userEmail)
+        if (jwtService.isTokenValid(jwt, userDetails)) {
+            val authToken = UsernamePasswordAuthenticationToken(
+                userDetails,
+                null,
+                userDetails.authorities
+            )
+            authToken.details = WebAuthenticationDetailsSource().buildDetails(request)
+            SecurityContextHolder.getContext().authentication = authToken
         }
     }
 

@@ -11,7 +11,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:${kotlinVersion}")
     implementation("io.jsonwebtoken:jjwt-api:${jsonwebtokenVersion}")
     implementation("io.jsonwebtoken:jjwt-impl:${jsonwebtokenVersion}")
-    implementation("io.jsonwebtoken:jjwt-impl:${jsonwebtokenVersion}")
+    implementation("io.jsonwebtoken:jjwt-jackson:${jsonwebtokenVersion}")
     runtimeOnly("org.postgresql:postgresql")
     testImplementation("org.springframework.boot:spring-boot-starter-test:${springBootVersion}") {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'

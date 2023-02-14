@@ -10,7 +10,7 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.security.core.userdetails.UsernameNotFoundException
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
-
+import org.springframework.security.crypto.password.PasswordEncoder
 
 @Configuration
 class ApplicationConfig(val repository: UserRepository) {
@@ -24,11 +24,15 @@ class ApplicationConfig(val repository: UserRepository) {
     fun authenticationProvider(): AuthenticationProvider {
         val provider = DaoAuthenticationProvider()
         provider.setUserDetailsService(this.userDetailsService())
-        provider.setPasswordEncoder(BCryptPasswordEncoder())
+        provider.setPasswordEncoder(passwordEncoder())
         return provider
     }
 
     @Bean
+    fun passwordEncoder(): PasswordEncoder = BCryptPasswordEncoder()
+
+    @Bean
     @Throws(Exception::class)
-    fun authenticationManager(config: AuthenticationConfiguration): AuthenticationManager = config.authenticationManager
+    fun authenticationManager(config: AuthenticationConfiguration): AuthenticationManager =
+        config.authenticationManager
 }

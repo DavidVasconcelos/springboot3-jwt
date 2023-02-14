@@ -12,7 +12,7 @@ import java.util.*
 
 @Service
 class JwtService(
-    @Value("\${jwt.secret}") val secretKey: String,
+    @Value("\${jwt.secret-key}") val secretKey: String,
     @Value("\${jwt.expiration-time}") val jwtExpirationTime: Int
 ) {
 
@@ -27,7 +27,7 @@ class JwtService(
 
     fun generateToken(userDetails: UserDetails) = generateToken(mapOf(), userDetails)
 
-    fun generateToken(extraClaims: Map<String, Any>, userDetails: UserDetails) = Jwts
+    fun generateToken(extraClaims: Map<String, Any>, userDetails: UserDetails): String = Jwts
         .builder()
         .setClaims(extraClaims)
         .setSubject(userDetails.username)
