@@ -23,3 +23,6 @@ server:
     encoding:
       enabled: true
       charset: 'UTF-8'
+jwt:
+  secret: ${JWT_SECRET:5A7134743677397A24432646294A404E635266556A586E327235753878214125}
+  expiration-time: ${JWT_EXPIRATION_TIME:600000}
