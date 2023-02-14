@@ -32,3 +32,5 @@ To build and run the project, follow these steps:
 * Run the project: ./gradlew bootRun
 
 -> The application will be available at http://localhost:8080.
+
+-> Postman collection: ./postman/postman_collection.json
