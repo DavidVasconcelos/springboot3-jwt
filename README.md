@@ -24,7 +24,7 @@ To get started with this project, you will need to have the following installed 
 To build and run the project, follow these steps:
 
 * Clone the repository: `git clone https://github.com/DavidVasconcelos/springboot3-jwt.git`
-* Navigate to the project directory: cd springboot3-jwt
+* Navigate to the project directory: `cd springboot3-jwt`
 * Run docker for postgres database: `docker-compose -f postgres-docker.yml up -d`
 * Build the project: `./gradlew build`
 * Run the project: `./gradlew bootRun`
