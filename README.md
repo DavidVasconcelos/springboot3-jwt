@@ -25,9 +25,10 @@ To build and run the project, follow these steps:
 
 * Clone the repository: `git clone https://github.com/DavidVasconcelos/springboot3-jwt.git`
 * Navigate to the project directory: cd springboot3-jwt
-* Build the project: ./gradlew build
-* Run the project: ./gradlew bootRun
+* Run docker for postgres database: `docker-compose -f postgres-docker.yml up -d`
+* Build the project: `./gradlew build`
+* Run the project: `./gradlew bootRun`
 
 -> The application will be available at http://localhost:8080.
 
--> Postman collection: ./postman/postman_collection.json
+-> Postman collection: `/postman/postman_collection.json`
